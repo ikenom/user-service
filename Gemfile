@@ -13,11 +13,11 @@ gem "puma", "~> 4.1"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
 
-gem "contentful"
-gem "contentful-management"
 gem "hutch"
 gem "mongoid"
 gem "sneakers"
+gem 'faraday'
+gem "faraday_middleware"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
