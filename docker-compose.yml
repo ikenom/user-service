@@ -9,6 +9,7 @@ x-default-app: &default-app
   LOCAL_RABBITMQ_SERVICE_PORT_HTTP_STATS: 15672
   RABBITMQ_USERNAME: user
   RABBITMQ_PASSWORD: bitnami
+  FIREBASE_API_KEY: $FIREBASE_API_KEY
 
 x-default-volumes: &default-volumes
   - .:/app
@@ -29,6 +30,8 @@ services:
       - network
     ports:
       - "4000:3000"
+    depends_on:
+      - mongo
 
   hutch:
     restart: always
