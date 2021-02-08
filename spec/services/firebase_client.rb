@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe FirebaseClient, :vcr do
   let(:api_key) { ENV["FIREBASE_API_KEY"] }
   let(:email) { "test@test.com" }

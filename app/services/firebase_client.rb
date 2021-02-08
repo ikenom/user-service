@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FirebaseClient
   class EmailExistsError < RuntimeError; end
   class PasswordInvalidError < RuntimeError; end
@@ -8,15 +10,16 @@ class FirebaseClient
     @api_key = api_key
     @connection = Faraday.new(
       url: "https://identitytoolkit.googleapis.com",
-      headers: {'Content-Type' => 'application/json'}) do |faraday|
+      headers: { "Content-Type" => "application/json" }
+    ) do |faraday|
       faraday.response(:json, content_type: /\bjson$/)
     end
   end
 
   def sign_up(email:, password:)
     payload = {
-      :email => email,
-      :password => password
+      email: email,
+      password: password
     }
 
     url = "v1/accounts:signUp?key=#{api_key}"
