@@ -1,10 +1,13 @@
 class FirebaseClient
-  attr_reader :connection
+  class EmailExistsError < RuntimeError; end
+  class PasswordInvalidError < RuntimeError; end
 
-  def initialize
-    url = "https://identitytoolkit.googleapis.com"
+  attr_reader :connection, :api_key
+
+  def initialize(api_key:)
+    @api_key = api_key
     @connection = Faraday.new(
-      url: url,
+      url: "https://identitytoolkit.googleapis.com",
       headers: {'Content-Type' => 'application/json'}) do |faraday|
       faraday.response(:json, content_type: /\bjson$/)
     end
@@ -16,7 +19,15 @@ class FirebaseClient
       :password => password
     }
 
-    url = "v1/accounts:signUp?key=#{ENV["FIREBASE_API_KEY"]}"
+    url = "v1/accounts:signUp?key=#{api_key}"
     response = connection.post(url, payload.to_json)
+
+    case response.status
+    when 400
+      raise EmailExistsError if response.body["error"]["message"].include?("EMAIL_EXISTS")
+      raise PasswordInvalidError if response.body["error"]["message"].include?("WEAK_PASSWORD")
+    end
+
+    response.body
   end
 end

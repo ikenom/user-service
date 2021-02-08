@@ -30,6 +30,8 @@ services:
       - network
     ports:
       - "4000:3000"
+    depends_on:
+      - mongo
 
   hutch:
     restart: always

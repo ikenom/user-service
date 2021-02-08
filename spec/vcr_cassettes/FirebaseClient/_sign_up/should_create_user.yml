@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAX6dyB5TKhUB8RUu7LoxD55HGBtTkO5Gk
+    body:
+      encoding: UTF-8
+      string: '{"email":"test@test.com","password":"password"}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v1.3.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Date:
+      - Mon, 08 Feb 2021 05:06:11 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Server:
+      - ESF
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3-29=":443"; ma=2592000,h3-T051=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "kind": "identitytoolkit#SignupNewUserResponse",
+          "idToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjJjMmVkODQ5YThkZTI3ZTI0NjFlNGJjM2VmMDZhYzdhYjc4OGQyMmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vb3Bwb3J0dW5pdHktc2l0ZSIsImF1ZCI6Im9wcG9ydHVuaXR5LXNpdGUiLCJhdXRoX3RpbWUiOjE2MTI3NjA3NzEsInVzZXJfaWQiOiJ2a1B3U0RNR1BxTWhSVXZJd1Q1eUpOY3JqYmoyIiwic3ViIjoidmtQd1NETUdQcU1oUlV2SXdUNXlKTmNyamJqMiIsImlhdCI6MTYxMjc2MDc3MSwiZXhwIjoxNjEyNzY0MzcxLCJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdEB0ZXN0LmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.rn4wac_etnEg5CS3DyTRtFh15YOCknbRPaDc5agIyknKlMcpMfNBSWvq3u28oJIcJ2CTtnhvPrh3tGruXxD8XNIDKocDXbFZqydlMKxMpS3EOVHIgGdUadVNvftkbgy7301tMvLpn07sBew8fP7VeRQOCVNyni8FKDson8W9ReFSimuVpMLTdacMRLIKheOuLJBIkeNPuQIotJADXgTsaAMP1XL5Jv8k2p8W1jlFJDKH23Op2-zmiGpmx_jgF351nxmqA0e6pJm66U2k58QtxLOTaMzIrwHIp21SlJmjP4Y8EtchHS0yLZPelsjcNkhljbJCFSAWtmaMjviMrko8rg",
+          "email": "test@test.com",
+          "refreshToken": "AOvuKvQz27yE08sAOG8BfoOCaJpIM73ZVWTzHwLmxQLFWesMzJWj7dkiGYh0AJEHJnVT5onIt8IRPhmax-yd832JLcfMp88mS87cOUsPnNnM_NMLGZySR77VJT3kUs88FWaB1lSz8j5_zeN77vgt45WVUYSA0nsl0_wc9nh6EX8Jf3cI_TCvIwNlPJzDohSJOkqnDK994FUZlZzsLeOl9yoE5CzuTWIxEw",
+          "expiresIn": "3600",
+          "localId": "vkPwSDMGPqMhRUvIwT5yJNcrjbj2"
+        }
+  recorded_at: Mon, 08 Feb 2021 05:06:11 GMT
+recorded_with: VCR 6.0.0
