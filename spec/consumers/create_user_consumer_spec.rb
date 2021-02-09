@@ -18,10 +18,10 @@ RSpec.describe CreateUserConsumer do
   it "should enqueue create restaurant jobs" do
     consumer.process(message)
     expect(CreateUserJob).to have_been_enqueued.with(hash_including({
-      email: message[:email],
-      password: message[:password],
-      name: message[:name],
-      type: message[:type]
-    }))
+                                                                      email: message[:email],
+                                                                      password: message[:password],
+                                                                      name: message[:name],
+                                                                      type: message[:type]
+                                                                    }))
   end
 end

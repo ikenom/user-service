@@ -21,12 +21,12 @@ RSpec.describe CreateUserExporterJob, type: :job do
 
   it "should export user" do
     expect(Hutch).to receive(:publish).with("user.created", {
-      user: {
-        id: user_id,
-        name: name,
-        type: type
-      }
-    })
+                                              user: {
+                                                id: user_id,
+                                                name: name,
+                                                type: type
+                                              }
+                                            })
 
     perform
   end

@@ -7,13 +7,13 @@ RSpec.describe CreateUserJob, type: :job do
   let(:type) { :vendor }
   let(:api_key) { Faker::Alphanumeric.alpha }
 
-  let(:payload) {
+  let(:payload) do
     {
       "localId" => Faker::Alphanumeric.alpha,
       "idToken" => Faker::Alphanumeric.alpha,
       "refreshToken" => Faker::Alphanumeric.alpha,
     }
-  }
+  end
 
   subject(:perform) do
     described_class.perform_now(
@@ -43,17 +43,17 @@ RSpec.describe CreateUserJob, type: :job do
   it "should queue CreateExporterJob" do
     perform
     expect(CreateUserExporterJob).to have_been_enqueued.with(hash_including({
-      firebase_id: payload["localId"],
-      name: name
-    }))
+                                                                              firebase_id: payload["localId"],
+                                                                              name: name
+                                                                            }))
   end
 
   it "should queue UpdateUserJob" do
     perform
     expect(UpdateUserJob).to have_been_enqueued.with(hash_including({
-      user_id: User.last.id,
-      name: name,
-      api_key: api_key
-    }))
+                                                                      user_id: User.last.id,
+                                                                      name: name,
+                                                                      api_key: api_key
+                                                                    }))
   end
 end
