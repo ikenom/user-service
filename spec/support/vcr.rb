@@ -25,4 +25,9 @@ VCR.configure do |config|
       break interaction.response.headers[key].first if interaction.response.headers.key?(key)
     end
   end
+
+  config.filter_sensitive_data("<redacted-request>") do |interaction|
+    start_index = interaction.request.uri.index("?key")
+    interaction.request.uri[start_index..interaction.request.uri.size]
+  end
 end
