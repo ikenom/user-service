@@ -5,8 +5,7 @@ http_interactions:
     uri: https://identitytoolkit.googleapis.com/v1/accounts:update?key=<redacted-key>
     body:
       encoding: UTF-8
-      string: '{"idToken":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjJjMmVkODQ5YThkZTI3ZTI0NjFlNGJjM2VmMDZhYzdhYjc4OGQyMmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vb3Bwb3J0dW5pdHktc2l0ZSIsImF1ZCI6Im9wcG9ydHVuaXR5LXNpdGUiLCJhdXRoX3RpbWUiOjE2MTI4NTEyMjAsInVzZXJfaWQiOiJ2ZDh1ODJmaEZEUGlhc2VNb0FhTUVJSUtvVUUzIiwic3ViIjoidmQ4dTgyZmhGRFBpYXNlTW9BYU1FSUlLb1VFMyIsImlhdCI6MTYxMjg1MTIyMCwiZXhwIjoxNjEyODU0ODIwLCJlbWFpbCI6InRlc3Q0QHRlc3QuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInRlc3Q0QHRlc3QuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.fN2zK8WOAfqfxfHVXkavr5PNy-RrNhKVxYMGIN9UZuHddrb5EpnXiNA99adybqIeMZ69eSXBCtMlLqTrFz4PR_T_jQYAOQHtYoh_7z7HHBPd946AgjIReNScQ_CR4xM0DPcSkZ6zsVPk5OtshMJAHMc-_mN1fnLh3L2tMaZ6yoVNkkPcnb_Cc0LSFXTjybG3QTUPYbjfu_6eEWm8CxRgsZcWkPlXpnRKDZ2E2QxEiyWWhr5Y-0My6kBreZoIEazu6ss2ExmhLxWLcFYG_OSYt5NOaCIM1K3ATAmoJC7raTpqWecgghZ4XK0XiuQjY-EKLrgigsadhOuFg1hlcCcUuw","displayName":"John
-        Doe"}'
+      string: '{"idToken":"<redacted-key>","displayName":"John Doe"}'
     headers:
       Content-Type:
       - application/json
@@ -21,10 +20,10 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Date:
+      - Tue, 09 Feb 2021 06:54:18 GMT
       Pragma:
       - no-cache
-      Date:
-      - Tue, 09 Feb 2021 06:18:30 GMT
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Expires:
@@ -49,7 +48,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
     body:
-      encoding: ASCII-8BIT
+      encoding: UTF-8
       string: |
         {
           "kind": "identitytoolkit#SetAccountInfoResponse",
@@ -68,5 +67,5 @@ http_interactions:
           "passwordHash": "UkVEQUNURUQ=",
           "emailVerified": false
         }
-  recorded_at: Tue, 09 Feb 2021 06:18:30 GMT
+  recorded_at: Tue, 09 Feb 2021 06:54:18 GMT
 recorded_with: VCR 6.0.0
