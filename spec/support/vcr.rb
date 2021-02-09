@@ -13,6 +13,10 @@ VCR.configure do |config|
   config.cassette_library_dir = "spec/vcr_cassettes"
   config.hook_into :webmock
   config.configure_rspec_metadata!
+  config.default_cassette_options = {
+    :match_requests_on => [:method,
+      VCR.request_matchers.uri_without_param(:key)]
+  }
 
   config.filter_sensitive_data("<redacted-request>") do |interaction|
     REQUEST_HEADERS.each do |key|
@@ -24,5 +28,10 @@ VCR.configure do |config|
     RESPONSE_HEADERS.each do |key|
       break interaction.response.headers[key].first if interaction.response.headers.key?(key)
     end
+  end
+
+  config.filter_sensitive_data("<redacted-key>") do |interaction|
+    start_index = interaction.request.uri.index("key=")
+    interaction.request.uri[(start_index+"key=".size)..interaction.request.uri.size]
   end
 end

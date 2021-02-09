@@ -10,6 +10,7 @@ x-default-app: &default-app
   RABBITMQ_USERNAME: user
   RABBITMQ_PASSWORD: bitnami
   FIREBASE_API_KEY: $FIREBASE_API_KEY
+  FIREBASE_USER_ID_TOKEN: $FIREBASE_USER_ID_TOKEN
 
 x-default-volumes: &default-volumes
   - .:/app

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAX6dyB5TKhUB8RUu7LoxD55HGBtTkO5Gk
+    uri: https://identitytoolkit.googleapis.com/v1/accounts:update?key=<redacted-key>
     body:
       encoding: UTF-8
       string: '{"idToken":"foo","displayName":"John Doe"}'
@@ -20,14 +20,14 @@ http_interactions:
       code: 400
       message: Bad Request
     headers:
-      Expires:
-      - Mon, 01 Jan 1990 00:00:00 GMT
-      Pragma:
-      - no-cache
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Date:
-      - Tue, 09 Feb 2021 03:51:21 GMT
+      - Tue, 09 Feb 2021 06:18:30 GMT
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
       Vary:
       - Origin
       - Referer
@@ -63,5 +63,5 @@ http_interactions:
             ]
           }
         }
-  recorded_at: Tue, 09 Feb 2021 03:51:21 GMT
+  recorded_at: Tue, 09 Feb 2021 06:18:30 GMT
 recorded_with: VCR 6.0.0
