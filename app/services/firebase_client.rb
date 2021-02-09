@@ -3,6 +3,7 @@
 class FirebaseClient
   class EmailExistsError < RuntimeError; end
   class PasswordInvalidError < RuntimeError; end
+  class IDTokenInvalidError < RuntimeError; end
 
   attr_reader :connection, :api_key
 
@@ -29,6 +30,23 @@ class FirebaseClient
     when 400
       raise EmailExistsError if response.body["error"]["message"].include?("EMAIL_EXISTS")
       raise PasswordInvalidError if response.body["error"]["message"].include?("WEAK_PASSWORD")
+    end
+
+    response.body
+  end
+
+  def update_user(id_token:, name:)
+    payload = {
+      idToken: id_token,
+      displayName: name
+    }
+
+    url = "v1/accounts:update?key=#{api_key}"
+    response = connection.post(url, payload.to_json)
+
+    case response.status
+    when 400
+      raise IDTokenInvalidError if response.body["error"]["message"].include?("INVALID_ID_TOKEN")
     end
 
     response.body

@@ -1,0 +1,67 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAX6dyB5TKhUB8RUu7LoxD55HGBtTkO5Gk
+    body:
+      encoding: UTF-8
+      string: '{"idToken":"foo","displayName":"John Doe"}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v1.3.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Date:
+      - Tue, 09 Feb 2021 03:51:21 GMT
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      Server:
+      - ESF
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3-29=":443"; ma=2592000,h3-T051=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "error": {
+            "code": 400,
+            "message": "INVALID_ID_TOKEN",
+            "errors": [
+              {
+                "message": "INVALID_ID_TOKEN",
+                "domain": "global",
+                "reason": "invalid"
+              }
+            ]
+          }
+        }
+  recorded_at: Tue, 09 Feb 2021 03:51:21 GMT
+recorded_with: VCR 6.0.0
