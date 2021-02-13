@@ -17,20 +17,20 @@ jobs:
           git config --global user.name "$GITHUB_ACTOR"
           git config --global user.email '$GITHUB_ACTOR@users.noreply.github.com'
 
-      - name: Install Python
-        uses: actions/setup-python@v1
+#       - name: Install Python
+#         uses: actions/setup-python@v1
 
-      - name: Install bump2version and yq
-        run: |
-          pip install --upgrade bump2version
-          pip install --upgrade yq
+#       - name: Install bump2version and yq
+#         run: |
+#           pip install --upgrade bump2version
+#           pip install --upgrade yq
 
-      - name: Bump Helm version
-        run: |
-          git pull
-          VERSION=$(yq '.version' < chart/Chart.yaml)
-          bump2version --commit --current-version $VERSION patch chart/Chart.yaml
-          git push
+#       - name: Bump Helm version
+#         run: |
+#           git pull
+#           VERSION=$(yq '.version' < chart/Chart.yaml)
+#           bump2version --commit --current-version $VERSION patch chart/Chart.yaml
+#           git push
 
       - name: Install Helm
         uses: azure/setup-helm@v1
