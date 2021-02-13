@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - 'chart/Chart.yaml'
 
 jobs:
   release:
@@ -13,6 +11,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
 
       - name: Configure git
         run: |
@@ -34,11 +34,6 @@ jobs:
 #           bump2version --commit --current-version $VERSION patch chart/Chart.yaml
 #           git push
 
-      - name: Install Helm
-        uses: azure/setup-helm@v1
-        with:
-          version: v3.4.0
-
       - name: Build and push image
         run: |
           docker login ghcr.io -u $GITHUB_ACTOR --password-stdin <<< ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
@@ -51,13 +46,26 @@ jobs:
           docker push ghcr.io/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}:$GITHUB_SHA
           docker push ghcr.io/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}:latest
 
+      - uses: marceloprado/has-changed-path@v1
+        id: version
+        with:
+          paths: chart/Chart.yaml
+          
+      - name: Install Helm
+        if: steps.version.outputs.changed == 'true'
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+      
       - name: Pacakage and push Helm
+        if: steps.version.outputs.changed == 'true'
         run: |
           helm package -u --app-version $GITHUB_SHA chart
           docker pull quay.io/helmpack/chart-releaser:v1.1.1
           docker run -v $(pwd):/app quay.io/helmpack/chart-releaser:v1.1.1 cr upload -p /app -o ${{ github.event.repository.owner.login }} -r ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Helm index and push to GH pages
+        if: steps.version.outputs.changed == 'true'
         run: |
           git pull
           git checkout gh-pages
