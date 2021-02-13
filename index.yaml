@@ -2,6 +2,29 @@ apiVersion: v1
 entries:
   user-service:
   - apiVersion: v2
+    appVersion: a08471afc3ee4a61989a7d634e85692ee0421357
+    created: "2021-02-13T06:51:39.577339846Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - mongodb
+      version: ~10.3.6
+    - condition: rabbitmq.enabled
+      name: rabbitmq
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - rabbitmq
+      version: ~8.6.3
+    description: A Helm chart for Kubernetes
+    digest: 580527d8ae33e3566c20eaf54271d81efa0fa0e8c842c17b58a4837d86e60fe6
+    name: user-service
+    type: application
+    urls:
+    - https://github.com/ikenom/user-service/releases/download/user-service-0.0.9/user-service-0.0.9.tgz
+    version: 0.0.9
+  - apiVersion: v2
     appVersion: 6aa8bc11d782b32a200e3f11d9f77957d7bfe847
     created: "2021-02-13T06:40:36.636888738Z"
     dependencies:
