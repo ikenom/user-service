@@ -44,10 +44,6 @@ jobs:
             --label org.opencontainers.image.source=https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}
           docker push ghcr.io/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}:$GITHUB_SHA
           docker push ghcr.io/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}:latest
-      - uses: marceloprado/has-changed-path@v1
-        id: version
-        with:
-          paths: chart/Chart.yaml
 
       - name: Install Helm
         if: steps.version.outputs.changed == 'true'
