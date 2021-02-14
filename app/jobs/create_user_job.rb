@@ -17,6 +17,6 @@ class CreateUserJob < ApplicationJob
     Rails.logger.info "User #{user.id} was created"
 
     UpdateUserJob.perform_later(user_id: user.id.to_s, name: name, api_key: api_key)
-    CreateUserExporterJob.perform_later(firebase_id: user.firebase_id, name: name, type: type)
+    CreateUserExporterJob.perform_later(user_id: user.id.to_s, name: name, type: type)
   end
 end

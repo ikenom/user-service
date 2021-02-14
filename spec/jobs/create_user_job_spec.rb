@@ -43,7 +43,7 @@ RSpec.describe CreateUserJob, type: :job do
   it "should queue CreateExporterJob" do
     perform
     expect(CreateUserExporterJob).to have_been_enqueued.with(hash_including({
-                                                                              firebase_id: payload["localId"],
+                                                                              user_id: User.last.id.to_s,
                                                                               name: name
                                                                             }))
   end
