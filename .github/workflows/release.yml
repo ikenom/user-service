@@ -21,12 +21,6 @@ jobs:
 #       - name: Install Python
 #         uses: actions/setup-python@v1
 
-<<<<<<< HEAD
-=======
-#       - name: Install Python
-#         uses: actions/setup-python@v1
-
->>>>>>> a08471afc3ee4a61989a7d634e85692ee0421357
 #       - name: Install bump2version and yq
 #         run: |
 #           pip install --upgrade bump2version
@@ -65,13 +59,13 @@ jobs:
         id: version
         with:
           paths: chart/Chart.yaml
-          
+
       - name: Install Helm
         if: steps.version.outputs.changed == 'true'
         uses: azure/setup-helm@v1
         with:
           version: v3.4.0
-      
+
       - name: Pacakage and push Helm
         if: steps.version.outputs.changed == 'true'
         run: |
