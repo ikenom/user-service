@@ -3,6 +3,7 @@
 class CreateUserConsumer
   include Hutch::Consumer
   consume "user.create"
+  queue_name 'consumer_user_service_create_user'
 
   def process(message)
     CreateUserJob.perform_later(
