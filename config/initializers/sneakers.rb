@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+git# frozen_string_literal: true
 
 # config/initializers/sneakers.rb
 require "sneakers"
@@ -15,5 +15,5 @@ password = ENV["RABBITMQ_PASSWORD"]
 Sneakers.configure  heartbeat: 30,
                     amqp: "amqp://#{username}:#{password}@#{host}:#{port}",
                     vhost: "/",
-                    exchange: "sneakers-user-service",
+                    exchange: "sneakers",
                     exchange_type: :direct
