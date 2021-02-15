@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-# field :business_name, type: String
-#   field :email, type: String
-#   field :phone, type: String
-#   field :first_name, type: String
-#   field :last_name, type: String
-
 FactoryBot.define do
   factory :vendor, class: Vendor, parent: :user do
     business_name { Faker::Company.name }
