@@ -10,6 +10,5 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:firebase_id) }
     it { is_expected.to validate_presence_of(:id_token) }
     it { is_expected.to validate_presence_of(:refresh_token) }
-    it { is_expected.to validate_presence_of(:type) }
   end
 end

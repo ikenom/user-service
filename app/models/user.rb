@@ -8,5 +8,5 @@ class User
   field :refresh_token, type: String
   field :type, type: Symbol
 
-  validates :firebase_id, :id_token, :refresh_token, :type, presence: true
+  validates :firebase_id, :id_token, :refresh_token, presence: true
 end
