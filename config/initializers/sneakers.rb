@@ -1,4 +1,4 @@
-git# frozen_string_literal: true
+# frozen_string_literal: true
 
 # config/initializers/sneakers.rb
 require "sneakers"

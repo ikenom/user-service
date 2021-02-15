@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CreateUserJob < ApplicationJob
-  queue_as :default
+  queue_as :user_service_create_user
 
   def perform(email:, password:, name:, type:, api_key:)
     firebase_client = FirebaseClient.new(api_key: api_key)

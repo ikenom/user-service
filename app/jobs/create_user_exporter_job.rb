@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CreateUserExporterJob < ApplicationJob
-  queue_as :default
+  queue_as :user_service_create_user_exporter
 
   def perform(user_id:, name:, type:)
     Hutch.connect

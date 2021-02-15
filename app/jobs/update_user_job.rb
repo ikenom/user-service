@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UpdateUserJob < ApplicationJob
-  queue_as :default
+  queue_as :user_service_update_user
 
   def perform(user_id:, name:, api_key:)
     user = User.find(user_id)
