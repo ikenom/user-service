@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=<redacted-key>
+    uri: https://identitytoolkit.googleapis.com/v1/accounts:update?key=<redacted-key>
     body:
       encoding: UTF-8
-      string: '{"email":"test@test.com","password":"1"}'
+      string: '{"idToken":"<redacted-key>","displayName":"John Doe"}'
     headers:
       Content-Type:
       - application/json
@@ -20,14 +20,14 @@ http_interactions:
       code: 400
       message: Bad Request
     headers:
-      Pragma:
-      - no-cache
-      Expires:
-      - Mon, 01 Jan 1990 00:00:00 GMT
       Date:
       - Tue, 09 Feb 2021 06:54:18 GMT
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
       Vary:
       - Origin
       - Referer
@@ -53,10 +53,10 @@ http_interactions:
         {
           "error": {
             "code": 400,
-            "message": "WEAK_PASSWORD : Password should be at least 6 characters",
+            "message": "INVALID_ID_TOKEN",
             "errors": [
               {
-                "message": "WEAK_PASSWORD : Password should be at least 6 characters",
+                "message": "INVALID_ID_TOKEN",
                 "domain": "global",
                 "reason": "invalid"
               }

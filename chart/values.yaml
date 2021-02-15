@@ -89,3 +89,6 @@ rabbitmq:
     username: user
     password: password
     erlangCookie: d
+
+firebase:
+  api_key: ''

@@ -11,31 +11,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
 
       - name: Configure git
         run: |
           git config --global user.name "$GITHUB_ACTOR"
           git config --global user.email '$GITHUB_ACTOR@users.noreply.github.com'
+#       - name: Install Python
+#         uses: actions/setup-python@v1
 
-      - name: Install Python
-        uses: actions/setup-python@v1
+#       - name: Install bump2version and yq
+#         run: |
+#           pip install --upgrade bump2version
+#           pip install --upgrade yq
 
-      - name: Install bump2version and yq
-        run: |
-          pip install --upgrade bump2version
-          pip install --upgrade yq
-
-      - name: Bump Helm version
-        run: |
-          git pull
-          VERSION=$(yq '.version' < chart/Chart.yaml)
-          bump2version --commit --current-version $VERSION patch chart/Chart.yaml
-          git push
-
-      - name: Install Helm
-        uses: azure/setup-helm@v1
-        with:
-          version: v3.4.0
+#       - name: Bump Helm version
+#         run: |
+#           git pull
+#           VERSION=$(yq '.version' < chart/Chart.yaml)
+#           bump2version --commit --current-version $VERSION patch chart/Chart.yaml
+#           git push
 
       - name: Build and push image
         run: |
@@ -49,17 +45,34 @@ jobs:
           docker push ghcr.io/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}:$GITHUB_SHA
           docker push ghcr.io/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}:latest
 
+      - name: Install Helm
+        if: steps.version.outputs.changed == 'true'
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+
+      - uses: marceloprado/has-changed-path@v1
+        id: version
+        with:
+          paths: chart/Chart.yaml
+
+      - name: Install Helm
+        if: steps.version.outputs.changed == 'true'
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+
       - name: Pacakage and push Helm
+        if: steps.version.outputs.changed == 'true'
         run: |
           helm package -u --app-version $GITHUB_SHA chart
           docker pull quay.io/helmpack/chart-releaser:v1.1.1
           docker run -v $(pwd):/app quay.io/helmpack/chart-releaser:v1.1.1 cr upload -p /app -o ${{ github.event.repository.owner.login }} -r ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create Helm index and push to GH pages
+        if: steps.version.outputs.changed == 'true'
         run: |
           git pull
           git checkout gh-pages
-
           docker run -v $(pwd):/app quay.io/helmpack/chart-releaser:v1.1.1 cr index -p /app -o ${{ github.event.repository.owner.login }} -r ${{ github.event.repository.name }} -i /app -c https://${{ github.event.repository.owner.login }}.github.io/${{ github.event.repository.name }}
           git add .
           git commit -am "Updating helm package"
