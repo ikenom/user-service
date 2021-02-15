@@ -85,6 +85,7 @@ mongodb:
     enabled: false
 
 rabbitmq:
+  enabled: true
   auth:
     username: user
     password: password
