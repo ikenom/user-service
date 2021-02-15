@@ -8,11 +8,11 @@ class CreateVendorExporterJob < ApplicationJob
 
     vendor = Vendor.find(user_id)
     Hutch.publish("user.vendor.created",
-                    user_id: vendor.id.to_s,
-                    first_name: vendor.first_name,
-                    last_name: vendor.last_name,
-                    business_name: vendor.business_name,
-                    email: vendor.email,
-                    phone: vendor.phone)
+                  user_id: vendor.id.to_s,
+                  first_name: vendor.first_name,
+                  last_name: vendor.last_name,
+                  business_name: vendor.business_name,
+                  email: vendor.email,
+                  phone: vendor.phone)
   end
 end

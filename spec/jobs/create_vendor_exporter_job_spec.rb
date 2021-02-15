@@ -5,7 +5,7 @@ RSpec.describe CreateVendorExporterJob, type: :job do
 
   subject(:perform) do
     described_class.perform_now(
-      user_id: vendor.id.to_s,
+      user_id: vendor.id.to_s
     )
   end
 
@@ -21,12 +21,12 @@ RSpec.describe CreateVendorExporterJob, type: :job do
 
   it "should export user" do
     expect(Hutch).to receive(:publish).with("user.vendor.created", {
-      user_id: vendor.id.to_s,
-      first_name: vendor.first_name,
-      last_name: vendor.last_name,
-      business_name: vendor.business_name,
-      email: vendor.email,
-      phone: vendor.phone
+                                              user_id: vendor.id.to_s,
+                                              first_name: vendor.first_name,
+                                              last_name: vendor.last_name,
+                                              business_name: vendor.business_name,
+                                              email: vendor.email,
+                                              phone: vendor.phone
                                             })
 
     perform
