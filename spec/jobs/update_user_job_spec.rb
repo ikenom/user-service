@@ -5,7 +5,7 @@ RSpec.describe UpdateUserJob, type: :job do
   let(:name) { Faker::Superhero.name }
   let(:api_key) { Faker::Alphanumeric.alpha }
 
-  subject(:perform) { described_class.perform_now(user_id: user.id, name: name, api_key: api_key) }
+  subject(:perform) { described_class.perform_now(user_id: user.id, name: name) }
 
   before(:each) do
     allow_any_instance_of(FirebaseClient).to receive(:update_user)
