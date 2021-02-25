@@ -53,8 +53,7 @@ jobs:
 
       - name: Pacakage and push Helm
         run: |
-          git fetch --tags
-          VERSION=$(git describe --abbrev=0 --tags)
+          VERSION=$(git tag | sort -r --version-sort | head -n1)
           VERSION=${VERSION#"user-service-"}
           VERSION=$(bumpversion --current-version $VERSION --dry-run --list patch)
           VERSION=${VERSION#"new_version="}
