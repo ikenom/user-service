@@ -62,7 +62,7 @@ services:
     image: mongo:4.2.5
     restart: always
     ports:
-      - "5001:27017"
+      - "5011:27017"
     networks:
       - network
 
