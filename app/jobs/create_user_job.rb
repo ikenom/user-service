@@ -11,7 +11,7 @@ class CreateUserJob < ApplicationJob
     user = User.create!(
       firebase_id: payload["localId"],
       id_token: payload["idToken"],
-      refresh_token: payload["refreshToken"],
+      refresh_token: payload["refreshToken"]
     )
 
     Rails.logger.info "User #{user.id} was created"

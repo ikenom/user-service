@@ -16,10 +16,10 @@ RSpec.describe CreateUserConsumer do
   it "should enqueue create user job" do
     consumer.process(message)
     expect(CreateUserJob).to have_been_enqueued.with({
-                                                                        email: message[:email],
-                                                                        password: message[:password],
-                                                                        sender_id: message[:sender_id],
-                                                                        display_name: message[:display_name]
-                                                                      })
+                                                       email: message[:email],
+                                                       password: message[:password],
+                                                       sender_id: message[:sender_id],
+                                                       display_name: message[:display_name]
+                                                     })
   end
 end

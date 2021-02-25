@@ -6,7 +6,6 @@ RSpec.describe CreateUserJob, type: :job do
   let(:display_name) { Faker::Name.name }
   let(:sender_id) { Faker::Alphanumeric.alpha }
 
-
   let(:payload) do
     {
       "localId" => Faker::Alphanumeric.alpha,
