@@ -53,10 +53,11 @@ jobs:
 
       - name: Pacakage and push Helm
         run: |
-          VERSION=$(git describe --abbrev=10 --tags)
+          VERSION=$(git describe --abbrev=0 --tags)
           VERSION=${VERSION#"user-service-"}
-          bump2version --current-version $VERSION patch chart/Chart.yaml
-          helm package -u --app-version $GITHUB_SHA chart
+          VERSION=$(bumpversion --current-version $VERSION --dry-run --list patch)
+          VERSION=${VERSION#"new_version="}
+          helm package -u --app-version $GITHUB_SHA --version $VERSION chart
           docker pull quay.io/helmpack/chart-releaser:v1.1.1
           docker run -v $(pwd):/app quay.io/helmpack/chart-releaser:v1.1.1 cr upload -p /app -o ${{ github.event.repository.owner.login }} -r ${{ github.event.repository.name }} -t ${{ secrets.SERVICE_ACCOUNT_PAT }}
 
