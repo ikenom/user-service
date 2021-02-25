@@ -1,14 +1,14 @@
 production:
   clients:
     default:
-      uri: <%= MongoidUriBuilder.build(database_name: "myapp_production") %>
+      uri: <%= MongoidUriBuilder.build(database_name: "user_service_production") %>
 
 development:
   clients:
     default:
-      uri: <%= MongoidUriBuilder.build(database_name: "myapp_development") %>
+      uri: <%= MongoidUriBuilder.build(database_name: "user_service_development") %>
 
 test:
   clients:
     default:
-      uri: <%= MongoidUriBuilder.build(database_name: "myapp_test") %>
+      uri: <%= MongoidUriBuilder.build(database_name: "user_service_test") %>
