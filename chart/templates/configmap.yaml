@@ -4,6 +4,7 @@ metadata:
   name: {{ .Chart.Name }}-configmap
 data:
   RELEASE_NAME: {{ .Release.Name }}
+  RAILS_ENV: production
   RABBITMQ_USERNAME: {{ .Values.rabbitmq.auth.username }}
   RABBITMQ_PASSWORD: {{ .Values.rabbitmq.auth.password }}
   FIREBASE_API_KEY: {{ .Values.firebase.api_key }}
