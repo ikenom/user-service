@@ -5,6 +5,7 @@ metadata:
 data:
   RELEASE_NAME: {{ .Release.Name }}
   RAILS_ENV: production
+  SECRET_KEY_BASE: production_test_key
   RABBITMQ_USERNAME: {{ .Values.rabbitmq.auth.username }}
   RABBITMQ_PASSWORD: {{ .Values.rabbitmq.auth.password }}
   FIREBASE_API_KEY: {{ .Values.firebase.api_key }}
