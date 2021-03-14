@@ -3,7 +3,6 @@
 FactoryBot.define do
   factory :user do
     firebase_id { Faker::Alphanumeric.alpha }
-    id_token { Faker::Alphanumeric.alpha }
     refresh_token { Faker::Alphanumeric.alpha }
   end
 end

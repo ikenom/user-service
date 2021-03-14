@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
-RSpec.describe CreateUserExporterJob, type: :job do
+RSpec.describe PublishJob, type: :job do
   let(:user) { create(:user) }
   let(:sender_id) { Faker::Alphanumeric.alpha }
 
   subject(:perform) do
     described_class.perform_now(
       user_id: user.id.to_s,
-      sender_id: sender_id
+      sender_id: sender_id,
+      queue_name: "user.created"
     )
   end
 
@@ -17,11 +18,11 @@ RSpec.describe CreateUserExporterJob, type: :job do
   end
 
   it "should have correct queue name" do
-    expect(CreateUserExporterJob.queue_name).to eq("user_service_create_user_exporter")
+    expect(PublishJob.queue_name).to eq("user_service_publish")
   end
 
   it "should export user" do
-    expect(Hutch).to receive(:publish).with("user.created", { auth_id: user.firebase_id, sender_id: sender_id })
+    expect(Hutch).to receive(:publish).with("user.created", { user_id: user.id.to_s, sender_id: sender_id })
 
     perform
   end

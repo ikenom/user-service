@@ -11,6 +11,7 @@ x-default-app: &default-app
   RABBITMQ_PASSWORD: bitnami
   FIREBASE_API_KEY: $FIREBASE_API_KEY
   FIREBASE_USER_ID_TOKEN: $FIREBASE_USER_ID_TOKEN
+  HMAC_SECRET: $HMAC_SECRET
 
 x-default-volumes: &default-volumes
   - .:/app
@@ -30,7 +31,7 @@ services:
     networks:
       - network
     ports:
-      - "4000:3000"
+      - "5800:3000"
     depends_on:
       - mongo
 
@@ -62,14 +63,14 @@ services:
     image: mongo:4.2.5
     restart: always
     ports:
-      - "5011:27017"
+      - "5811:27017"
     networks:
       - network
 
   rabbitmq:
     image: 'bitnami/rabbitmq:latest'
     ports:
-      - "5002:15672"
+      - "5802:15672"
     networks:
       - network
 

@@ -9,8 +9,8 @@ RSpec.describe CreateUserJob, type: :job do
   let(:payload) do
     {
       "localId" => Faker::Alphanumeric.alpha,
-      "idToken" => Faker::Alphanumeric.alpha,
       "refreshToken" => Faker::Alphanumeric.alpha,
+      "idToken" => Faker::Alphanumeric.alpha,
     }
   end
   let(:user_payload) { build(:user) }
@@ -38,19 +38,23 @@ RSpec.describe CreateUserJob, type: :job do
     user = User.last
 
     expect(user.firebase_id).to eq(payload["localId"])
-    expect(user.id_token).to eq(payload["idToken"])
     expect(user.refresh_token).to eq(payload["refreshToken"])
   end
 
-  it "should queue CreateExporterJob" do
+  it "should return created user" do
+    user = perform
+    expect(user).to eq(User.last)
+  end
+
+  it "should queue PublishJob" do
     perform
-    expect(CreateUserExporterJob).to have_been_enqueued.with({ user_id: User.last.id.to_s, sender_id: sender_id })
+    expect(PublishJob).to have_been_enqueued.with({ queue_name: "user.created", user_id: User.last.id.to_s, sender_id: sender_id })
   end
 
   it "should queue UpdateUserJob" do
     perform
     expect(UpdateUserJob).to have_been_enqueued.with({
-                                                       user_id: User.last.id,
+                                                       id_token: payload["idToken"],
                                                        name: display_name
                                                      })
   end

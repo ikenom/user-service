@@ -13,6 +13,8 @@ gem "puma", "~> 4.1"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
 
+gem 'graphql'
+gem 'jwt'
 gem "advanced-sneakers-activejob"
 gem "faraday"
 gem "faraday_middleware"
@@ -29,6 +31,7 @@ group :development, :test do
   gem "rspec-rails", "~> 4.0.2"
   gem "vcr"
   gem "webmock"
+
 end
 
 group :development do
