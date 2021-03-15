@@ -23,7 +23,6 @@ jobs:
             --label org.opencontainers.image.source=https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}
           docker push ghcr.io/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}:$GITHUB_SHA
           docker push ghcr.io/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}:latest
-
   deploy:
     runs-on: ubuntu-latest
     needs: [release]
@@ -38,14 +37,12 @@ jobs:
         run: |
           git config --global user.name "$GITHUB_ACTOR"
           git config --global user.email '$GITHUB_ACTOR@users.noreply.github.com'
-
       - name: Install Python
         uses: actions/setup-python@v1
 
       - name: Install bump2version
         run: |
           pip install --upgrade bump2version
-
       - name: Install Helm
         uses: azure/setup-helm@v1
         with:
@@ -54,13 +51,12 @@ jobs:
       - name: Pacakage and push Helm
         run: |
           VERSION=$(git tag | sort -r --version-sort | head -n1)
-          VERSION=${VERSION#"user-service-"}
+          VERSION=${VERSION#"ecommerce-orchestrator-"}
           VERSION=$(bumpversion --current-version $VERSION --dry-run --list patch)
           VERSION=${VERSION#"new_version="}
           helm package -u --app-version $GITHUB_SHA --version $VERSION chart
           docker pull quay.io/helmpack/chart-releaser:v1.1.1
           docker run -v $(pwd):/app quay.io/helmpack/chart-releaser:v1.1.1 cr upload -p /app -o ${{ github.event.repository.owner.login }} -r ${{ github.event.repository.name }} -t ${{ secrets.SERVICE_ACCOUNT_PAT }}
-
       - name: Create Helm index and push to GH pages
         run: |
           git pull
