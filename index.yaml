@@ -2,8 +2,8 @@ apiVersion: v1
 entries:
   user-service:
   - apiVersion: v2
-    appVersion: 9cb4bdfc917b5c4936d89041f989ca1c91aad3a7
-    created: "2021-03-15T01:43:24.319175647Z"
+    appVersion: b98daaea4e23a457bf65bf0ee0faf9f14b2fe414
+    created: "2021-03-15T01:43:42.532058156Z"
     dependencies:
     - name: mongodb
       repository: https://charts.bitnami.com/bitnami
@@ -16,12 +16,12 @@ entries:
       - user-service-dev
       version: ~8.6.3
     description: A Helm chart for Kubernetes
-    digest: e24dd8584006ad09cfea1ebae68ef03a8f2b2b6841179d7d476ac304d7493300
+    digest: 537b60e1377a690b6edf0c0680667ca3dc185732438c4ddbb50e1c0a608ab19e
     name: user-service
     type: application
     urls:
-    - https://github.com/ikenom/user-service/releases/download/user-service-0.0.30/user-service-0.0.30.tgz
-    version: 0.0.30
+    - https://github.com/ikenom/user-service/releases/download/user-service-0.0.31/user-service-0.0.31.tgz
+    version: 0.0.31
   - apiVersion: v2
     appVersion: 4464edd2074972d621a86888ed877e8b52646eba
     created: "2021-03-15T01:43:06.079157164Z"
