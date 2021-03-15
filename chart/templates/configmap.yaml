@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Chart.Name }}-configmap
+  name: {{ include "user-service.fullname" . }}-configmap
 data:
   RELEASE_NAME: {{ .Release.Name }}
   RAILS_ENV: {{ .Values.railsEnv }}
