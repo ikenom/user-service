@@ -4,8 +4,10 @@ metadata:
   name: {{ .Chart.Name }}-configmap
 data:
   RELEASE_NAME: {{ .Release.Name }}
-  RAILS_ENV: production
-  SECRET_KEY_BASE: production_test_key
+  RAILS_ENV: {{ .Values.railsEnv }}
+  SECRET_KEY_BASE: {{ .Values.secretKey }}
   RABBITMQ_USERNAME: {{ .Values.rabbitmq.auth.username }}
   RABBITMQ_PASSWORD: {{ .Values.rabbitmq.auth.password }}
-  FIREBASE_API_KEY: {{ .Values.firebase.api_key }}
+  FIREBASE_API_KEY: {{ .Values.firebase_api_key }}
+  HMAC_SECRET: {{ .Values.hmac_secret }}
+  RAILS_LOG_TO_STDOUT: enabled

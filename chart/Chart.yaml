@@ -21,12 +21,10 @@ dependencies:
   - name: mongodb
     version: ~10.3.6
     repository: https://charts.bitnami.com/bitnami
-    condition: mongodb.enabled
     tags:
-      - mongodb
+      - user-service-dev
   - name: rabbitmq
     version: ~8.6.3
     repository: https://charts.bitnami.com/bitnami
-    condition: rabbitmq.enabled
     tags:
-      - rabbitmq
+      - user-service-dev

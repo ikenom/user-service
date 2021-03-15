@@ -17,6 +17,7 @@ deploy:
       skipBuildDependencies: false
       valuesFiles:
         - ./chart/values.yaml
+        - ./chart/values.dev.yaml
       imageStrategy:
         helm: {}
       createNamespace: true

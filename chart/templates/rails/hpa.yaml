@@ -1,0 +1,28 @@
+{{- if .Values.rails.autoscaling.enabled }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "user-service.fullname" . }}-rails
+  labels:
+    {{- include "user-service.labels" . | nindent 4 }}-rails
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "user-service.fullname" . }}-rails
+  minReplicas: {{ .Values.rails.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.rails.autoscaling.maxReplicas }}
+  metrics:
+  {{- if .Values.rails.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: {{ .Values.rails.autoscaling.targetCPUUtilizationPercentage }}
+  {{- end }}
+  {{- if .Values.rails.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: {{ .Values.rails.autoscaling.targetMemoryUtilizationPercentage }}
+  {{- end }}
+{{- end }}

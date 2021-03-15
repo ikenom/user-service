@@ -33,6 +33,8 @@ class GraphqlController < ApplicationController
   def user
     return if token.nil?
     JwtService.decode_for_user(token: token, hmac_secret: ENV["HMAC_SECRET"])
+  rescue
+    nil
   end
 
   # Handle variables in form data, JSON body, or a blank value

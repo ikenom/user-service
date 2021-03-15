@@ -1,16 +1,17 @@
+{{- if .Values.hutch.enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "user-service.fullname" . }}-hutch
   labels:
-    {{- include "user-service.labels" . | nindent 4 }}
+    {{- include "user-service.labels" . | nindent 4 }}-hutch
 spec:
-{{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+{{- if not .Values.hutch.autoscaling.enabled }}
+  replicas: {{ .Values.hutch.replicaCount }}
 {{- end }}
   selector:
     matchLabels:
-      {{- include "user-service.selectorLabels" . | nindent 6 }}
+      {{- include "user-service.selectorLabels" . | nindent 6 }}-hutch
   template:
     metadata:
     {{- with .Values.podAnnotations }}
@@ -18,7 +19,7 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "user-service.selectorLabels" . | nindent 8 }}
+        {{- include "user-service.selectorLabels" . | nindent 8 }}-hutch
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -28,7 +29,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}-hutch
+        - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -37,7 +38,8 @@ spec:
             - name: http
               containerPort: 3000
               protocol: TCP
-          command: ["bundle"]
+          command:
+            - "bundle"
           args:
             - "exec"
             - "hutch"
@@ -45,7 +47,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:
             - configMapRef:
-                name: {{ .Chart.Name }}-configmap
+                name: {{ include "user-service.fullname" . }}-configmap
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -58,3 +60,4 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+{{- end }}

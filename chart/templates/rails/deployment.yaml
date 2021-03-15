@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "user-service.fullname" . }}
+  name: {{ include "user-service.fullname" . }}-rails
   labels:
-    {{- include "user-service.labels" . | nindent 4 }}
+    {{- include "user-service.labels" . | nindent 4 }}-rails
 spec:
-{{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+{{- if not .Values.rails.autoscaling.enabled }}
+  replicas: {{ .Values.rails.replicaCount }}
 {{- end }}
   selector:
     matchLabels:
-      {{- include "user-service.selectorLabels" . | nindent 6 }}
+      {{- include "user-service.selectorLabels" . | nindent 6 }}-rails
   template:
     metadata:
     {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "user-service.selectorLabels" . | nindent 8 }}
+        {{- include "user-service.selectorLabels" . | nindent 8 }}-rails
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -41,7 +41,15 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:
             - configMapRef:
-                name: {{ .Chart.Name }}-configmap
+                name: {{ include "user-service.fullname" . }}-configmap
+          {{ if .Values.railsMasterKey }}
+          env:
+          - name: RAILS_MASTER_KEY
+            valueFrom:
+              secretKeyRef:
+                name: rails-master-key
+                key: rails_master_key
+          {{ end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

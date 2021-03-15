@@ -3,14 +3,14 @@ kind: Deployment
 metadata:
   name: {{ include "user-service.fullname" . }}-sneakers
   labels:
-    {{- include "user-service.labels" . | nindent 4 }}
+    {{- include "user-service.labels" . | nindent 4 }}-sneakers
 spec:
-{{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+{{- if not .Values.sneakers.autoscaling.enabled }}
+  replicas: {{ .Values.sneakers.replicaCount }}
 {{- end }}
   selector:
     matchLabels:
-      {{- include "user-service.selectorLabels" . | nindent 6 }}
+      {{- include "user-service.selectorLabels" . | nindent 6 }}-sneakers
   template:
     metadata:
     {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "user-service.selectorLabels" . | nindent 8 }}
+        {{- include "user-service.selectorLabels" . | nindent 8 }}-sneakers
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -28,7 +28,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}-sneakers
+        - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -37,14 +37,23 @@ spec:
             - name: http
               containerPort: 3000
               protocol: TCP
-          command: ["bin/rake"]
+          command:
+            - "bin/rake"
           args:
             - "sneakers:run"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:
             - configMapRef:
-                name: {{ .Chart.Name }}-configmap
+                name: {{ include "user-service.fullname" . }}-configmap
+          {{ if .Values.railsMasterKey }}
+          env:
+          - name: RAILS_MASTER_KEY
+            valueFrom:
+              secretKeyRef:
+                name: rails-master-key
+                key: rails_master_key
+          {{ end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
