@@ -4,7 +4,7 @@
 require "sneakers"
 
 release_name = ENV["RELEASE_NAME"].upcase
-release_name.sub! "-", "_"
+release_name.gsub! "-", "_"
 
 host = ENV["#{release_name}_RABBITMQ_SERVICE_HOST"]
 port = ENV["#{release_name}_RABBITMQ_SERVICE_PORT_AMQP"]
